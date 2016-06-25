@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Angular MDL Confirm Dialog</title>
+
+  <!-- ========================================================== -->
+  <!--                            CSS                             -->
+  <!-- ========================================================== -->
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="libs/material-design-lite/material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-blue.min.css" />
+
+  <!-- Main CSS -->
+  <!-- <link rel="stylesheet" href="../ng-mdl.css" /> -->
+  <link rel="stylesheet" href="../dist/ng-mdl.min.css" />
+
+  <!-- ========================================================== -->
+  <!--                         Javascript                         -->
+  <!-- ========================================================== -->
+
+  <!-- External JS -->
+  <script src="libs/jquery/dist/jquery.js"></script>
+  <script src="libs/angular/angular.js"></script>
+  <script src="libs/material-design-lite/material.js"></script>
+
+  <!-- Main JS -->
+  <!-- <script src="../ng-mdl.module.js"></script> -->
+  <script src="../dist/ng-mdl.min.js"></script>
+
+  <!-- Test-App JS -->
+  <script src="test-app.module.js"></script>
+
+</head>
+
+<!-- App starts here! -->
+<body ng-app="test-app">
+  <div ng-controller="TestController" style="margin:30px;">
+    <h1>Angular MDL Test Page</h1>
+    <button ng-click="openConfirm()">Open Confirm Dialog</button>
+    <h4>Confirm Answer: {{confirmAnswer}}</h4>
+    <button ng-click="showNotify()">Notify Snackbar</button>
+    <button ng-click="showSuccess()">Success Snackbar</button>
+    <button ng-click="showInfo()">Info Snackbar</button>
+    <button ng-click="showWarn()">Warn Snackbar</button>
+    <button ng-click="showError()">Error Snackbar</button>
+
+  </div>
+</body>
+
+</html>
