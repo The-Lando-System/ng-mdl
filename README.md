@@ -2,7 +2,7 @@
 Angular Services for Material Design Lite Components
 
 Download:
-<pre>bower install ng-mdl</pre>
+<pre>bower install ngMdl</pre>
 
 Add to Module:
 <pre>
