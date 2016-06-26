@@ -12,9 +12,9 @@ angular.module('test-app', ['ng-mdl']);
 angular.module('test-app')
 .controller('TestController', TestController);
 
-TestController.$inject = ['$scope','MdlConfirm','MdlSnackbar','MdlUtils'];
+TestController.$inject = ['$scope','MdlSnackbar','MdlUtils','MdlDialog'];
 
-function TestController($scope,MdlConfirm,MdlSnackbar,MdlUtils) {
+function TestController($scope,MdlSnackbar,MdlUtils,MdlDialog) {
 
   $scope.showNotify =  function(){
   	MdlSnackbar.notify("I'm a notify message!",2000);
@@ -37,7 +37,11 @@ function TestController($scope,MdlConfirm,MdlSnackbar,MdlUtils) {
   }
 
   $scope.openConfirm = function(){
-    MdlConfirm.open('Confirm Title','Confirm Text',replyFunction);
+    MdlDialog.confirm('Confirm Title','Confirm Text',replyFunction);
+  }
+
+  $scope.openAlert = function(){
+    MdlDialog.alert('Alert Title','Alert Text');
   }
 
   function replyFunction(answer){
@@ -46,6 +50,18 @@ function TestController($scope,MdlConfirm,MdlSnackbar,MdlUtils) {
 
   $scope.closeDrawer = function() {
     MdlUtils.closeDrawer();
+  }
+
+  $scope.openDialog = function(dialogNumber) {
+    MdlDialog.open('test-dialog-' + dialogNumber);
+  }
+
+  $scope.closeDialog = function(dialogNumber) {
+    MdlDialog.close('test-dialog-' + dialogNumber);
+  }
+
+  $scope.dialogAction = function(dialogResult) {
+    $scope.dialogResult = dialogResult;
   }
 
 };

@@ -30,8 +30,8 @@
   <script src="libs/material-design-lite/material.js"></script>
 
   <!-- Main JS -->
-  <!-- <script src="../ng-mdl.module.js"></script> -->
-  <script src="../dist/ng-mdl.min.js"></script>
+  <script src="../dist/ng-mdl.js"></script>
+  <!-- <script src="../dist/ng-mdl.min.js"></script> -->
 
   <!-- Test-App JS -->
   <script src="test-app.module.js"></script>
@@ -60,13 +60,24 @@
           <div class="mdl-cell mdl-cell--12-col">
             <div class="mdl-grid">
               <div class="mdl-cell mdl-cell--12-col">
-                <h2>Confirmation Dialog</h2>
+                <h2>Dialogs</h2>
               </div>
-              <div class="mdl-cell mdl-cell--2-col">
+              <div class="mdl-cell mdl-cell--3-col">
+                <button ng-click="openAlert()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Open Alert Dialog</button>
+              </div>
+              <div class="mdl-cell mdl-cell--9-col"></div>
+              <div class="mdl-cell mdl-cell--3-col">
                 <button ng-click="openConfirm()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Open Confirm Dialog</button>
               </div>
-              <div class="mdl-cell mdl-cell--10-col">
+              <div class="mdl-cell mdl-cell--9-col">
                 <p style="font-size:20px;">Confirm Answer: {{confirmAnswer}}</p>
+              </div>
+              <div class="mdl-cell mdl-cell--3-col">
+                <button ng-click="openDialog('1')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Open Dialog 1</button>
+                <button ng-click="openDialog('2')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Open Dialog 2</button>
+              </div>
+              <div class="mdl-cell mdl-cell--9-col">
+                <p style="font-size:20px;">Dialog Result: {{dialogResult}}</p>
               </div>
             </div>
           </div>
@@ -87,6 +98,23 @@
         </div>
       </div>
     </main>
+  
+
+    <mdl-dialog dialog-id="test-dialog-1" dialog-title="I'm Test Dialog 1">
+      <p>Some content</p>
+      <hr/>
+      <button ng-click="dialogAction('Test dialog 1 action'); closeDialog('1');" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Do Something!</button>
+      <button ng-click="closeDialog('1')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Close</button>
+    </mdl-dialog>
+
+    <mdl-dialog dialog-id="test-dialog-2" dialog-title="I'm Test Dialog 2">
+      <p>Some content</p>
+      <hr/>
+      <button ng-click="dialogAction('Test dialog 2 action'); closeDialog('2');" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Do Something!</button>
+      <button ng-click="closeDialog('2')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Close</button>
+    </mdl-dialog>
+
+
   </div>
   
 </body>

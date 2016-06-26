@@ -13,18 +13,30 @@ angular.module('ng-mdl')
 
 function RunNgMdl($rootScope,$compile){
 
-  // Append the dialog to the body
-  var confirmTemplate = '<dialog id="mdl-confirm-dialog" class="mdl-dialog">' +
+  // Append the confirm dialog to the body
+  var confirmDialogTemplate = '<dialog id="mdl-confirm-dialog" class="mdl-dialog">' +
                   '<h3 class="mdl-dialog__title">{{mdlConfirmTitle}}</h3>' +
                   '<div class="mdl-dialog__content">' +
                     '<p>{{mdlConfirmText}}</p>' +
                   '</div>' +
                   '<div class="mdl-dialog__actions">' +
-                    '<button ng-click="closeMdlDialog(true);" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Yes</button>' +
-                    '<button ng-click="closeMdlDialog(false);" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">No</button>' +
+                    '<button ng-click="closeMdlConfirmDialog(true);" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Yes</button>' +
+                    '<button ng-click="closeMdlConfirmDialog(false);" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">No</button>' +
                   '</div>' +
                  '</dialog>'
-  $('body').append($compile(confirmTemplate)($rootScope));
+  $('body').append($compile(confirmDialogTemplate)($rootScope));
+
+  // Append the alert dialog to the body
+  var alertDialogTemplate = '<dialog id="mdl-alert-dialog" class="mdl-dialog">' +
+                  '<h3 class="mdl-dialog__title">{{mdlAlertTitle}}</h3>' +
+                  '<div class="mdl-dialog__content">' +
+                    '<p>{{mdlAlertText}}</p>' +
+                  '</div>' +
+                  '<div class="mdl-dialog__actions">' +
+                    '<button ng-click="closeMdlAlertDialog();" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">OK</button>' +
+                  '</div>' +
+                 '</dialog>'
+  $('body').append($compile(alertDialogTemplate)($rootScope));
 
   // Append the snackbar to the body
   var snackbarTemplate = '<div id="notification-snackbar" class="mdl-js-snackbar mdl-snackbar" ' +

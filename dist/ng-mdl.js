@@ -13,18 +13,30 @@ angular.module('ng-mdl')
 
 function RunNgMdl($rootScope,$compile){
 
-  // Append the dialog to the body
-  var confirmTemplate = '<dialog id="mdl-confirm-dialog" class="mdl-dialog">' +
+  // Append the confirm dialog to the body
+  var confirmDialogTemplate = '<dialog id="mdl-confirm-dialog" class="mdl-dialog">' +
                   '<h3 class="mdl-dialog__title">{{mdlConfirmTitle}}</h3>' +
                   '<div class="mdl-dialog__content">' +
                     '<p>{{mdlConfirmText}}</p>' +
                   '</div>' +
                   '<div class="mdl-dialog__actions">' +
-                    '<button ng-click="closeMdlDialog(true);" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Yes</button>' +
-                    '<button ng-click="closeMdlDialog(false);" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">No</button>' +
+                    '<button ng-click="closeMdlConfirmDialog(true);" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Yes</button>' +
+                    '<button ng-click="closeMdlConfirmDialog(false);" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">No</button>' +
                   '</div>' +
                  '</dialog>'
-  $('body').append($compile(confirmTemplate)($rootScope));
+  $('body').append($compile(confirmDialogTemplate)($rootScope));
+
+  // Append the alert dialog to the body
+  var alertDialogTemplate = '<dialog id="mdl-alert-dialog" class="mdl-dialog">' +
+                  '<h3 class="mdl-dialog__title">{{mdlAlertTitle}}</h3>' +
+                  '<div class="mdl-dialog__content">' +
+                    '<p>{{mdlAlertText}}</p>' +
+                  '</div>' +
+                  '<div class="mdl-dialog__actions">' +
+                    '<button ng-click="closeMdlAlertDialog();" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">OK</button>' +
+                  '</div>' +
+                 '</dialog>'
+  $('body').append($compile(alertDialogTemplate)($rootScope));
 
   // Append the snackbar to the body
   var snackbarTemplate = '<div id="notification-snackbar" class="mdl-js-snackbar mdl-snackbar" ' +
@@ -42,24 +54,67 @@ function RunNgMdl($rootScope,$compile){
 })();
 (function() { 'use strict';
 
+angular.module('ng-mdl')
+.directive('mdlDialog', MdlDialogDirective);
+
+function MdlDialogDirective() {
+  return {
+    template: '<dialog ng-attr-id="{{ \'mdl-dialog-\' + dialogId }}" class="mdl-dialog">' +
+                '<h3 class="mdl-dialog__title">{{dialogTitle}}</h3>' +
+                '<div class="mdl-dialog__content" ng-transclude>' +
+                '</div>' +
+              '</dialog>',
+    scope: {
+      dialogId: '@',
+      dialogTitle: '@'
+    },
+    restrict: 'E',
+    transclude: true
+  };
+};
+
+})();
+(function() { 'use strict';
+
 // Confirm Dialog Service
 angular.module('ng-mdl')
-.factory('MdlConfirm', MdlConfirm);
+.factory('MdlDialog', MdlDialog);
 
-MdlConfirm.$inject = ['$rootScope'];
+MdlDialog.$inject = ['$rootScope'];
 
-function MdlConfirm($rootScope) {
+function MdlDialog($rootScope) {
 
   // Init variables
-  var mdlConfirmService = {};
+  var mdlDialogService = {};
+  
+  var dialogSelector = '#mdl-dialog-';
   var confirmSelector = '#mdl-confirm-dialog';
-  $rootScope.closeMdlDialog = hideConfirm;
+  var alertSelector = '#mdl-alert-dialog';
+  
+  $rootScope.closeMdlConfirmDialog = hideConfirm;
+  $rootScope.closeMdlAlertDialog = hideAlert;
 
   // Function declarations
-  mdlConfirmService.open = open;
+  mdlDialogService.open = openDialog;
+  mdlDialogService.alert = openAlert;
+  mdlDialogService.confirm = openConfirm;
+  mdlDialogService.close = closeDialog;
+
 
   // Function implementations
-  function open(title,text,callback){
+  function openAlert(title,text){
+    var alertDialog = document.querySelector(alertSelector);
+    $rootScope.mdlAlertTitle = title;
+    $rootScope.mdlAlertText = text;
+    alertDialog.showModal();
+  };
+
+  function hideAlert() {
+      var alertDialog = document.querySelector(alertSelector);
+      close(alertDialog);
+  };
+   
+  function openConfirm(title,text,callback){
     var confirmDialog = document.querySelector(confirmSelector);
     $rootScope.mdlConfirmTitle = title;
     $rootScope.mdlConfirmText = text;
@@ -69,14 +124,42 @@ function MdlConfirm($rootScope) {
 
   function hideConfirm(answer) {
       var confirmDialog = document.querySelector(confirmSelector);
-      if (confirmDialog.attributes.hasOwnProperty('open')){
-        confirmDialog.close();
-        $rootScope.mdlConfirmFunction(answer);
+      if (!confirmDialog){
+        console.log('WARNING! Failed to close dialog... Could not select the MDL dialog component');
+      } else {
+        if (confirmDialog.attributes.hasOwnProperty('open')){
+          confirmDialog.close();
+          $rootScope.mdlConfirmFunction(answer);
+        }
       }
   };
 
+  function openDialog(id){
+    var dialog = document.querySelector(dialogSelector + id);
+    if (!dialog){
+      console.log('WARNING! Failed to open dialog... Could not select the MDL dialog with ID: ' + id);
+    } else {
+      dialog.showModal();
+    }
+  };
+
+  function closeDialog(id) {
+    var dialog = document.querySelector(dialogSelector + id);
+    close(dialog);
+  }
+
+  function close(dialog){
+    if (!dialog){
+      console.log('WARNING! Failed to close dialog... Could not select the MDL dialog component');
+    } else {
+      if (dialog.attributes.hasOwnProperty('open')){
+        dialog.close();
+      }
+    }
+  };
+
   // Return the service
-  return mdlConfirmService;
+  return mdlDialogService;
 
 };
 
