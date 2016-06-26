@@ -50,21 +50,42 @@
     <div class="mdl-layout__drawer">
       <span ui-sref="dashboard" class="mdl-layout-title clickable">Drawer</span>
       <nav class="mdl-navigation">
-        <a ng-click="closeDrawer()" class="mdl-navigation__link" href="#">Link 1</a>
-        <a ng-click="closeDrawer()" class="mdl-navigation__link" href="#">Link 2</a>
-        <a ng-click="closeDrawer()" class="mdl-navigation__link" href="#">Link 3</a>
+        <a ng-click="closeDrawer()" class="mdl-navigation__link" href="#">Link and Close Drawer</a>
+        <a class="mdl-navigation__link" href="#">Link and Don't Close Drawer</a>
       </nav>
     </div>
     <main class="mdl-layout__content dashboard">
-      <div class="page-content" style="margin:30px;">
-        <h1>Angular MDL Test Page</h1>
-        <button ng-click="openConfirm()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Open Confirm Dialog</button>
-        <h4>Confirm Answer: {{confirmAnswer}}</h4>
-        <button ng-click="showNotify()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Notify Snackbar</button>
-        <button ng-click="showSuccess()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Success Snackbar</button>
-        <button ng-click="showInfo()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Info Snackbar</button>
-        <button ng-click="showWarn()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Warn Snackbar</button>
-        <button ng-click="showError()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Error Snackbar</button>
+      <div class="page-content">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col"><h1>Angular MDL Test Page</h1></div>
+          <div class="mdl-cell mdl-cell--12-col">
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col">
+                <h2>Confirmation Dialog</h2>
+              </div>
+              <div class="mdl-cell mdl-cell--2-col">
+                <button ng-click="openConfirm()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Open Confirm Dialog</button>
+              </div>
+              <div class="mdl-cell mdl-cell--10-col">
+                <p style="font-size:20px;">Confirm Answer: {{confirmAnswer}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--12-col">
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col">
+                <h2>Snackbar</h2>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col">
+                <button ng-click="showNotify()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Notify Snackbar</button>
+                <button ng-click="showSuccess()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Success Snackbar</button>
+                <button ng-click="showInfo()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Info Snackbar</button>
+                <button ng-click="showWarn()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Warn Snackbar</button>
+                <button ng-click="showError()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Error Snackbar</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
