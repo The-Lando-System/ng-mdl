@@ -12,9 +12,9 @@ angular.module('test-app', ['ng-mdl']);
 angular.module('test-app')
 .controller('TestController', TestController);
 
-TestController.$inject = ['$scope','MdlConfirm','MdlSnackbar'];
+TestController.$inject = ['$scope','MdlConfirm','MdlSnackbar','MdlUtils'];
 
-function TestController($scope,MdlConfirm,MdlSnackbar) {
+function TestController($scope,MdlConfirm,MdlSnackbar,MdlUtils) {
 
   $scope.showNotify =  function(){
   	MdlSnackbar.notify("I'm a notify message!",2000);
@@ -42,6 +42,10 @@ function TestController($scope,MdlConfirm,MdlSnackbar) {
 
   function replyFunction(answer){
     $scope.confirmAnswer = answer;
+  }
+
+  $scope.closeDrawer = function() {
+    MdlUtils.closeDrawer();
   }
 
 };

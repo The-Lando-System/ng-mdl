@@ -2,13 +2,19 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        concat: {
+          dist: {
+            src: ['src/js/ng-mdl.module.js','src/js/*.js'],
+            dest: 'dist/<%= pkg.name %>.js',
+          },
+        },
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
                 mangle: false
             },
             build: {
-                src:  'src/js/<%= pkg.name %>.module.js',
+                src:  'dist/<%= pkg.name %>.js',
                 dest: 'dist/<%= pkg.name %>.min.js'
             }
         },
@@ -28,8 +34,9 @@ module.exports = function(grunt) {
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     // Default task(s).
-    grunt.registerTask('default', ['uglify','cssmin']);
+    grunt.registerTask('default', ['concat','uglify','cssmin']);
 
 };
